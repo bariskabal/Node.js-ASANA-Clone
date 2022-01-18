@@ -10,6 +10,9 @@ const list = () => {
         select:"full_name email"
     })
 }
+const modify = (data,id) =>{
+    return Project.findByIdAndUpdate(id,data,{new : true}) 
+}
  module.exports = {
-     insert,list
+     insert,list,modify
  }
