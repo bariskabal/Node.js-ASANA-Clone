@@ -1,6 +1,6 @@
 const {insert,list,loginUser} = require("../services/Users")
 const httpStatus = require("http-status")
-const {passwordToHash} = require("../scripts/utils/helper")
+const {passwordToHash, generateAccessToken, generateRefreshToken} = require("../scripts/utils/helper")
 
 
 const create = (req,res) => {
@@ -28,6 +28,13 @@ const login = (req,res) => {
     .then((user)=>{
         if (!user) {
             return res.status(httpStatus.NOT_FOUND).send({message: "Böyle bir kullanıcı bulunmamaktadır!"})
+        }
+        user = {
+            ...user.toObject(),
+            tokens:{
+                access_token : generateAccessToken(user),
+                refresh_token : generateRefreshToken(user)
+            }
         }
         res.status(httpStatus.OK).send(user)
     })
