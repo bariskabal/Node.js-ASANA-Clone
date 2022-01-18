@@ -1,4 +1,5 @@
 const Mongoose = require("mongoose")
+const logger = require("../scripts/logger/Projects")
 
 const ProjectSchema = new Mongoose.Schema({
     name: String,
@@ -7,6 +8,21 @@ const ProjectSchema = new Mongoose.Schema({
     //     ref: "user"
     // }
 },{ timestamps:true, versionKey : false})
+
+
+// ProjectSchema.pre("save",(next,doc)=>{
+//     // console.log("öncesi",doc)
+//     next()
+// })
+ProjectSchema.post("save",(doc)=>{
+    console.log("sonrası",doc)
+    logger.log({
+        level:"info",
+        message: doc
+    })
+    // kayıt edilmiştir / loglama
+})
+
 
 
 module.exports = Mongoose.model("project",ProjectSchema)
