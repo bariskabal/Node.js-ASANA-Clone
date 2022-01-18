@@ -3,6 +3,7 @@ const httpStatus = require("http-status")
 
 
 const create = (req,res) => {
+    req.body.user_id = req.user
     insert(req.body).then(response => {
         res.status(httpStatus.CREATED).send(response)
     }).catch((e) => {

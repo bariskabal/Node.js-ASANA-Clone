@@ -9,9 +9,7 @@ const router = express.Router()
 const schemas = require("../validations/Projects")
 
 router.route("/").get(authenticateToken,index)
-router
-.route("/")
-.post(validate(schemas.createValidation),create)
+router.route("/").post(validate(schemas.createValidation),authenticateToken,create)
 
 
 module.exports = router

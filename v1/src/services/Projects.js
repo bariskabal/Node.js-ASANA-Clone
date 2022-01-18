@@ -5,7 +5,10 @@
     return project.save()
  }
 const list = () => {
-    return Project.find({})
+    return Project.find({}).populate({
+        path: "user_id",
+        select:"full_name email"
+    })
 }
  module.exports = {
      insert,list
