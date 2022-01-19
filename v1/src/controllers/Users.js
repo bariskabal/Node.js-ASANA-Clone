@@ -1,4 +1,4 @@
-const {insert,list,loginUser,modify} = require("../services/Users")
+const {insert,list,loginUser,modify,remove } = require("../services/Users")
 const projectService = require("../services/Projects")
 const httpStatus = require("http-status")
 const uuid = require("uuid")
@@ -71,9 +71,34 @@ const update = (req,res) => {
          res.status(httpStatus.OK).send(updatedUser)
      }).catch(()=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error:"Beklenmedik bir hata oluştu!"}))
 }
+const changePassword = (req,res) => {
+    req.body.password = passwordToHash(req.body.password)
+    modify({_id:req.user?._id},req.body).then((updatedUser) => {
+        res.status(httpStatus.OK).send(updatedUser)
+    }).catch(()=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error:"Beklenmedik bir hata oluştu!"}))
+}
+const deleteUser = (req,res)=>{
+    if (!req.params?.id) {
+        return res.status(httpStatus.BAD_REQUEST).send({message : "Kayıt bulunamadı."})
+    }
+    remove(req.params?.id)
+    .then((deletedUser) => {
+        if (!deletedUser) {
+            return res.status(httpStatus.NOT_FOUND).send({message : "ID Bilgisi eksik."})
+        }
+        res.status(httpStatus.OK).send({message : "User silinmiştir!"})
+    }).catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Silme işlemi sırasında bir sorun oluştu"}))
+}
+const updateProfileImage = (req,res)>={
+    // 1- Resim kontrolü
+    
+    // 2- Upload işlemi 
+    // 3- DB save işlemi
+    // 4- Responses 
+}
 
 
 
 module.exports = {
-    create,index,login,projectList,resetPassword,update
+    create,index,login,projectList,resetPassword,update,deleteUser,changePassword,updateProfileImage
 }
