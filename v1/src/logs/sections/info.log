@@ -1,0 +1,2 @@
+{"level":"info","message":{"_id":"61e8372240d97e875c2d5608","createdAt":"2022-01-19T16:06:58.535Z","name":"Test section","updatedAt":"2022-01-19T16:06:58.535Z","user_id":"61e720696dac6d7bfd859889"},"service":"section-service"}
+{"level":"info","message":{"_id":"61e838185cdb9392f2408be9","createdAt":"2022-01-19T16:11:04.027Z","name":"Test section","project_id":"61e72253a0a733c9412dccfa","updatedAt":"2022-01-19T16:11:04.027Z","user_id":"61e720696dac6d7bfd859889"},"service":"section-service"}
