@@ -13,6 +13,9 @@ const list = (where) => {
 const modify = (data,id) =>{
     return Project.findByIdAndUpdate(id,data,{new : true}) 
 }
+const remove = (id) =>{
+    return Project.findByIdAndDelete(id,{new : true}) 
+}
  module.exports = {
-     insert,list,modify
+     insert,list,modify,remove
  }

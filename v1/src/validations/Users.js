@@ -16,7 +16,10 @@ const updateValidation = Joi.object({
     full_name : Joi.string().min(3),
     email : Joi.string().email().min(8),
 })
+const changePasswordValidation = Joi.object({
+    password : Joi.string().required().min(8),
+})
 
 module.exports = {
-    createValidation,loginValidation,resetPasswordValidation,updateValidation
+    createValidation,loginValidation,resetPasswordValidation,updateValidation,changePasswordValidation
 }

@@ -1,4 +1,4 @@
-const {insert,list,modify} = require("../services/Projects")
+const {insert,list,modify,remove} = require("../services/Projects")
 const httpStatus = require("http-status")
 
 
@@ -28,6 +28,18 @@ const update = (req,res) => {
     }).catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Kayıt sırasında bir sorun oluştu"}))
 
 }
+const deleteProject = (req,res)=>{
+    if (!req.params?.id) {
+        return res.status(httpStatus.BAD_REQUEST).send({message : "Kayıt bulunamadı."})
+    }
+    remove(req.params?.id)
+    .then((deletedProject) => {
+        if (!deletedProject) {
+            return res.status(httpStatus.NOT_FOUND).send({message : "ID Bilgisi eksik."})
+        }
+        res.status(httpStatus.OK).send({message : "Proje silinmiştir!"})
+    }).catch(e=> res.status(httpStatus.INTERNAL_SERVER_ERROR).send({error : "Silme işlemi sırasında bir sorun oluştu"}))
+}
 module.exports = {
-    create,index,update
+    create,index,update,deleteProject
 }
